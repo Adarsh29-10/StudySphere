@@ -1,1 +1,1 @@
-export const DB_NAME='RentEase2'
+export const DB_NAME='StudySphere'
