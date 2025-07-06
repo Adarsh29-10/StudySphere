@@ -1,35 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard';
-import Groups from './pages/Groups';
-import Schedule from './pages/Schedule';
-import Resources from './pages/Resources';
-import Rewards from './pages/Rewards';
-import Settings from './pages/Settings';
-import SignUpModal from './components/SignUpModal';
+import Dashboard from './Dashboard/Dashboard';
+import Schedule from './Dashboard/Schedule';
+import Resources from './Dashboard/Resources';
 import GroupHome from './pages/GroupHome';
 import MeetingInterface from './pages/MeetingInterface';
+import { useAuth0 } from '@auth0/auth0-react';
+import MyGroups from './Dashboard/MyGroups';
 
 function App() {
-  const [showSignUp, setShowSignUp] = useState(false);
+  const {user, isAuthenticated, isLoading} = useAuth0()
 
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+  
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage onSignUp={() => setShowSignUp(true)} />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element={<Groups />} />
-          <Route path="groups" element={<Groups />} />
-          <Route path="schedule" element={<Schedule />} />
-          <Route path="resources" element={<Resources />} />
-          <Route path="rewards" element={<Rewards />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-        <Route path="/group/:groupId" element={<GroupHome />} />
-        <Route path="/meeting/:id" element={<MeetingInterface />} />
+        {isAuthenticated ? (
+          <>
+            <Route path="/" element={<Dashboard />}>
+              <Route index element={<MyGroups />} />
+              {/* <Route path="groups" element={<Groups />} /> */}
+              <Route path="schedule" element={<Schedule />} />
+              <Route path="resources" element={<Resources />} />
+              {/* <Route path="rewards" element={<Rewards />} /> */}
+              {/* <Route path="settings" element={<Settings />} /> */}
+            </Route>
+            <Route path="/group/:groupId" element={<GroupHome />} />
+            <Route path="/meeting/:id" element={<MeetingInterface />} />
+          </>
+        ) : (
+          <Route path="/*" element={<LandingPage />} />
+        )}
       </Routes>
-      {showSignUp && <SignUpModal onClose={() => setShowSignUp(false)} />}
     </>
   );
 }

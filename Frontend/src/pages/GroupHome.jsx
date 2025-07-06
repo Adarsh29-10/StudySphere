@@ -144,7 +144,7 @@ const GroupHome = () => {
   };
 
   const handleJoinMeeting = () => {
-    navigate(`/meeting/${groupId}`); // Assuming groupId is available in the component
+    navigate(`/meeting/groupId`); // Assuming groupId is available in the component
   };
 
   return (
@@ -208,7 +208,8 @@ const GroupHome = () => {
         <header className="mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold mb-2">🚀 JavaScript Wizards</h1>
+              <h1 className="text-3xl font-bold mb-2">🚀JavaScript Masters
+              </h1>
               <p className="text-gray-600 flex items-center gap-3">
                 <BsFillPeopleFill className="text-blue-500" /> 12 Members
                 <FaStar className="text-yellow-500" /> 4.8
@@ -224,8 +225,8 @@ const GroupHome = () => {
         <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-6 rounded-lg mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-xl font-semibold">📅 Next Session</p>
-              <p className="text-green-100">Tomorrow at 3PM</p>
+              <p className="text-xl font-semibold">📅 Session Live</p>
+              <p className="text-green-100">Started at 11 AM </p>
             </div>
             <button 
               onClick={handleJoinMeeting}

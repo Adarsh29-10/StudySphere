@@ -14,8 +14,10 @@ import {
   Minimize2,
   X
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function MeetingInterface() {
+  const navigate = useNavigate()
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
@@ -254,7 +256,10 @@ function MeetingInterface() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+          <button 
+            onClick={()=> navigate(`/group/group1`)} 
+            
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
             Leave Meeting
           </button>
         </div>

@@ -115,10 +115,12 @@ const generateAccessTokenAndRefreshToken = async (userId) =>{
 // })
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password, interests } = req.body;
+    const { fullName, email, password, interests } = req.body;
+
+    console.log("Request body:", req.body);
 
     // Validate required fields
-    if ([name, email, password].some((field) => !field?.trim())) {
+    if ([fullName, email, password].some((field) => !field?.trim())) {
         throw new ApiError(400, "Name, email, and password are required");
     }
 
@@ -128,9 +130,11 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(409, "User with this email already exists");
     }
 
+
+
     // Create user
     const user = await User.create({
-        name,
+        fullName,
         email,
         password,
         interests,
@@ -211,7 +215,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    
+
     // Validate required fields
     if (!email || !password) {
         throw new ApiError(400, "Email and password are required");
